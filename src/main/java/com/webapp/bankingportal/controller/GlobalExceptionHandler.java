@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.context.request.WebRequest;
-
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.validation.FieldError;
+import java.util.stream.Collectors;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.webapp.bankingportal.exception.AccountDoesNotExistException;
 import com.webapp.bankingportal.exception.FundTransferException;
@@ -122,6 +124,17 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(RedisConnectionFailureException.class)
     public ResponseEntity<Map<String, String>> handleRedisConnectionFailure(RedisConnectionFailureException ex) {
         return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(Map.of("message", ApiMessages.REDIS_CONNECTION_FAILURE.getMessage()));
+    }
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<String> handleValidationException(MethodArgumentNotValidException ex) {
+
+        String errors = ex.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .map(FieldError::getDefaultMessage)
+                .collect(Collectors.joining(", "));
+
+        return ResponseEntity.badRequest().body(errors);
     }
 
     @ExceptionHandler(Exception.class)

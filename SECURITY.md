@@ -4,7 +4,7 @@
 
 If you have discovered any potential security vulnerabilities within our organization's repositories, we appreciate your responsible disclosure. To report a vulnerability, please follow the guidelines below:
 
-**Email**: Send an email to abhishektiwari.13@yahoo.com detailing the vulnerability you have identified.
+**Email**: Send an email to thirupathi7805@gmail.com detailing the vulnerability you have identified.
 
 **Response Time**: We will make every effort to respond to your report within 2 - 3 business days to acknowledge that we have received it.
 

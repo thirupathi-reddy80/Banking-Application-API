@@ -1,5 +1,6 @@
 package com.webapp.bankingportal.mapper;
 
+import java.util.ArrayList;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
@@ -11,5 +12,9 @@ import com.webapp.bankingportal.entity.User;
 public interface UserMapper {
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    public void updateUser(User source, @MappingTarget User target);
+    void updateUser(User source, @MappingTarget User target);
+
+    default <T> ArrayList<T> map(ArrayList<T> source) {
+        return source == null ? null : new ArrayList<>(source);
+    }
 }
